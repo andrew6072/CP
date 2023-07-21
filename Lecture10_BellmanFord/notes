@@ -1,0 +1,13 @@
+Bellman-Ford just relaxes all the edges in an arbitrary order
+(this is one iteration of Bellman-Ford). In the first iteration,
+we find the correct distance for all the nodes whose shortest paths f
+rom the source have 1 edge. In the next iteration, we find the correct
+distances for all the nodes whose shortest paths from the source have
+2 edges, and so on. If the shortest path with the most edges has k edges,
+we need k iterations of Bellman Ford. Of course, we do not know what "k" is
+in advance, but, since shortest paths never repeat nodes
+(assuming there are no negative cycles), what we know for sure is that any
+shortest path will have at most V-1 edges (in the case where it goes through every node).
+This is why V-1 iterations is ALWAYS enough, but often not necessary.
+If in one iteration of Bellman-Ford no relaxation yields any improvement,
+it means that we already found all shortest paths and we can finish.
