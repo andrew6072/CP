@@ -1,7 +1,7 @@
 def bsFirst(a, left, right, x):
     if left <= right:
         mid = (left + right) // 2
-        if (x > a[mid - 1]) and a[mid] == x:
+        if (left == mid or x > a[mid - 1]) and a[mid] == x:
             return mid
         elif x > a[mid]:
             return bsFirst(a, mid + 1, right, x)
