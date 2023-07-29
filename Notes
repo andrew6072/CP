@@ -1,0 +1,7 @@
+Input is ended with an end-of-file character (EOF)
+
+while True:
+    try:
+        <Code here>
+    except EOFError:
+        break
