@@ -5,3 +5,6 @@ while True:
         <Code here>
     except EOFError:
         break
+
+Print to 4 decimal places
+print("%.4f" % x)
