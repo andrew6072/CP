@@ -25,6 +25,41 @@ def createTree(a, n):
     return root
 
 
+def searchNode(root, x):
+    if root == None or root.key == x:
+        return root
+    if x > root.key:
+        return searchNode(root.right, x)
+    return searchNode(root.left, x)
+
+
+def deleteNode(root, x):
+    if root == None:
+        return root
+    if x < root.key:
+        root.left = deleteNode(root.left, x)
+    elif x > root.key:
+        root.right = deleteNode(root.right, x)
+    else: # when x == root.key
+        if root.left == None:
+            temp = root.right
+            del root
+            return temp
+        elif root.right == None:
+            temp = root.left
+            del root
+            return temp
+        temp = minValueNode(root.right)
+        root.key = temp.key
+        root.right = deleteNode(root.right, temp.key)
+    return root
+
+
+def minValueNode(root):
+    if root.left == None:
+        return root
+    return minValueNode(root.left)
+
 
 n = int(input())
 a = list(map(int, input().split()))
