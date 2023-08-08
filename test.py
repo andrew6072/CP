@@ -90,12 +90,14 @@ def rotateRight(root, pivot):
     return root
 
 
-a = [5,3,7,2,4]
+a = [5,3,7,2,4,1,6,7,8,9,10, 20, 15, 25, 14, 18, 21, 27]
 root = createTree(a)
 traversalTree(root)
 
 print()
 
 print(root.left, root.right)
-root = rotateRight(root, root.left)
-print(root.right.left, root.right.right)
+
+a = 20
+root = deleteNode(root, a)
+insertNode(root, a)

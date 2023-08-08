@@ -1,8 +1,11 @@
 class Node:
-    def __init__(self, key):
+    def __init__(self, key=-1):
         self.key = key
         self.left = None
         self.right = None
+
+    def __repr__(self):
+        return f'{self.key}'
 
 def createNode(x):
     return Node(x)
@@ -18,54 +21,32 @@ def insertNode(root, x):
     return root
 
 
-def createTree(a, n):
+def createTree(a):  # O(N*h) h=log(N) in best case
     root = None
     for x in a:
         root = insertNode(root, x)
     return root
 
 
-def searchNode(root, x):
-    if root == None or root.key == x:
-        return root
-    if x > root.key:
-        return searchNode(root.right, x)
-    return searchNode(root.left, x)
-
-
-def deleteNode(root, x):
+# Function finds min value from tree that is bigger than x
+def upperBound(root, x):
     if root == None:
         return root
-    if x < root.key:
-        root.left = deleteNode(root.left, x)
-    elif x > root.key:
-        root.right = deleteNode(root.right, x)
-    else: # when x == root.key
-        if root.left == None:
-            temp = root.right
-            del root
-            return temp
-        elif root.right == None:
-            temp = root.left
-            del root
-            return temp
-        temp = minValueNode(root.right)
-        root.key = temp.key
-        root.right = deleteNode(root.right, temp.key)
-    return root
-
-
-def minValueNode(root):
-    if root.left == None:
-        return root
-    return minValueNode(root.left)
+    if root.key <= x:
+        return upperBound(root.right, x)
+    elif root.key > x:
+        ub_left = upperBound(root.left, x)
+        return root if ub_left is None else ub_left
 
 
 n = int(input())
-a = list(map(int, input().split()))
-min_diff = 10**17
-for i in range(n-1):
-    for j in range(i+1, n):
-        if a[i] > a[j]:
-            min_diff = min(a[i]-a[j], min_diff)
-print(min_diff)
+prices = list(map(int, input().split()))
+minimum_loss = 10**17
+root = None
+for price in prices:
+    best_buy = upperBound(root, price)
+    if best_buy is not None:
+        minimum_loss = min(minimum_loss, best_buy.key - price)
+    root = insertNode(root, price)
+
+print(minimum_loss)
