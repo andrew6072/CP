@@ -28,7 +28,7 @@ def createTree(a):  # O(N*h) h=log(N) in best case
     return root
 
 
-# Function finds min value from tree that is bigger than x
+# Function finds minimum value in tree that is still bigger than x
 def upperBound(root, x):
     if root == None:
         return root

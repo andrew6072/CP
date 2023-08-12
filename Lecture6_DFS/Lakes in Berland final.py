@@ -26,8 +26,7 @@ def dfs(count, component, m, n, maze, visited, row, col):
     while len(stack) != 0:
         cell = stack.pop()
         num_cell_in_component += 1
-        component.append((count, cell[0], cell[
-            1]))  # stores tuples of (so thu tu of component, row coprdinate of a cell in the component, col coordinate)
+        component.append((count, cell[0], cell[1]))  # stores tuples of (so thu tu of component, row coprdinate of a cell in the component, col coordinate)
         for i in range(4):
             adj_i = cell[0] + dRow[i]
             adj_j = cell[1] + dCol[i]
