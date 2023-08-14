@@ -1,0 +1,23 @@
+2 10 10
+1st: 0 left: time 0 there's 1st car at left bank, then PICKS right: +10, NOW 10 right (1st: 10)
+2nd: 10 left: time 10 there's 2nd car at left bank, then MOVES left: +10, NOW 20 left
+3rd: 20 left: time 20 on left bank there are 2 cars 2nd, 3rd, then PICKS right: +10, NOW 30 right (2nd, 3rd: 30)
+4th: 30 left: time 30 on left bank there's 4th car, then MOVES left:+10, NOW 40 left
+5th: 40 left: time 40 PICKS 4th, 5th right:+10, NOW 50 right (4th,5th:50), there's 6th at left, then MOVES left:+10, NOW 60 left
+6th: 50 left:
+7th: 60 left: time 60 PICKS 6th, 7th right:+10, NOW 70 right (6th,7th:70), there's 8th at left, then MOVES left:+10, NOW 80 left
+8th: 70 left:
+9th: 80 left: time 80 PICKS 8th, 9th right:+10, NOW 90 right (8th,9th:90), there's 10th at left, then MOVES left:+10, NOW 100 left
+10th: 90 left: time 100 PICKS 10th right:+10, NOW 110 right (10th:110)
+
+2 10 10
+0 right
+10 right
+20 right
+30 right
+40 right
+50 right
+60 right
+70 right
+80 right
+90 right
