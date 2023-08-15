@@ -73,6 +73,8 @@ def oppositeBank(which_bank):
 
 def operate(ans, n, t, ferry, bank, where, opposite_bank):
     if not bank.empty() and bank.queue[0][1] <= ferry.time:
+        # is there are cars arrive in this bank before current time (car_time < ferry.time)
+        # we pick all cars that are suitable with time and capacity of ferry
         count = 1
         while count <= n and not bank.empty() and bank.queue[0][1] <= ferry.time:
             car = bank.get()
@@ -80,7 +82,11 @@ def operate(ans, n, t, ferry, bank, where, opposite_bank):
             count += 1
         move(t, ferry, oppositeBank(where))
 
-    elif not bank.empty() and bank.queue[0][1] > ferry.time:  # The time when there's no cars in both 2 banks, update time
+    elif not bank.empty() and bank.queue[0][1] > ferry.time:
+        # The time when there's no cars in both 2 banks, we'll see car from which side comes first
+        # if there's a car which comes to this bank first, then we update current time to the time that car arrives (top element from the queue)
+        # or else, there's a car which comes to the opposite bank first, then we move ferry to the opposite bank
+        # then update current time to the time the car arrives (top element from the queue)
         car_time_left = bank.queue[0][1]
         car_time_right = 10 ** 9
         if not opposite_bank.empty():
@@ -90,8 +96,11 @@ def operate(ans, n, t, ferry, bank, where, opposite_bank):
             ferry.time = car_time_left
         else:
             move(t, ferry, oppositeBank(where))
+            if ferry.time < car_time_right:
+                ferry.time = car_time_right
 
-    else:  # this bank is empty
+    else:
+        # if this bank is empty, then move to the other
         move(t, ferry, oppositeBank(where))
 
 
@@ -113,6 +122,8 @@ def solve():
     for i in range(m):
         car_time, which_bank = input().split()
         car_time = int(car_time)
+
+        # we'll store (i: the order of the car, car_time: the time when the car arrives) tuples in 2 queues
         if which_bank == 'left':
             min_car_time_left = min(min_car_time_left, car_time)
             left_bank.put((i, car_time))
@@ -120,8 +131,10 @@ def solve():
             min_car_time_right = min(min_car_time_right, car_time)
             right_bank.put((i, car_time))
 
+    # class FerryStatus stores information about current time and which side the ferry's at
     ferry = FerryStatus(min(min_car_time_left, min_car_time_right), 'left')
 
+    # we keep operate while there's at least 1 queue is not empty
     while (not left_bank.empty()) or (not right_bank.empty()):
         if ferry.where == 'left':
             operate(ans, n, t, ferry, left_bank, 'left', right_bank)
